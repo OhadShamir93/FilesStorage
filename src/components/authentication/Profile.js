@@ -1,0 +1,51 @@
+import React, { useState } from "react"
+import { Card, Button, Alert } from "react-bootstrap"
+import { useAuth } from "../../contexts/AuthContext"
+import { Link, useHistory } from "react-router-dom"
+import CenteredContainer from "./CenteredContainer"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faHouse } from "@fortawesome/free-solid-svg-icons"
+
+export default function Profile() {
+  const [error, setError] = useState("")
+  const { currentUser, logout } = useAuth()
+  const history = useHistory()
+
+  async function handleLogout() {
+    setError("")
+
+    try {
+      await logout()
+      history.push("/login")
+    } catch {
+      setError("Failed to log out")
+    }
+  }
+
+  return (
+    <CenteredContainer>
+      <Card>
+        <Card.Body>
+          <h2 className="text-center mb-4">Profile</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <strong>Email:</strong> {currentUser.email}
+          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+            Update Profile
+          </Link>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center mt-2">
+      <label variant="outline-primary" size="sm">
+        <FontAwesomeIcon icon={faHouse} />
+        </label>
+          <Link to="/" className="text w-100 mt-3 mr-5 ml-1">
+          Home Page
+          </Link>
+
+        <Button variant="link" onClick={handleLogout}>
+          Log Out
+        </Button>
+      </div>
+    </CenteredContainer>
+  )
+}
