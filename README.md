@@ -5,6 +5,7 @@ Technologies have been used:
 2.	Server side –   node js + firebase.
 3.	Client-side – React.
 4.	Firebase service: user authentication, database, hosting.
+   
    •	Firebase authentication –user operations: login/register and update details.
 
    •	Firebase hosting – for hosting and deployment of our project.
